@@ -298,7 +298,7 @@ $api->post('test', 'TestController@store'); // Testing store route
 All routes other than the authentication routes will require a JWT token in order to hit the endpoints, this is instantiated with `jwt.auth` middleware. To use this middleware we wrap the endpoints in a route group within the middleware.
 
 ```php
-$api->group(['middleware' => 'jwt.auth'], function(Router $api) {
+$api->group(['middleware' => 'api.auth'], function(Router $api) {
     $api->get('test', 'TestController@index'); // Testing get route
 });
 ```
@@ -312,7 +312,7 @@ We can add route prefixes to determine which version of the API we are trying to
 EG: `http://{domain}/api/v1/test`
 
 ```php
-$api->group(['middleware' => 'jwt.auth', 'prefix' => 'v1'], function(Router $api) {
+$api->group(['middleware' => 'api.auth', 'prefix' => 'v1'], function(Router $api) {
     $api->get('test', 'TestController@index'); // Testing get route
 });
 ```
@@ -323,7 +323,7 @@ Because we are using multiple versions for the API, it would be easy to clutter 
 Instead, we can wrap all of the routes within a certain namespace inside the route gropus
 
 ```php
-$api->group(['middleware' => 'jwt.auth', 'prefix' => 'v1', 'namespace' => 'App\\Http\\Api\\v1\\Controllers'], function(Router $api) {
+$api->group(['middleware' => 'api.auth', 'prefix' => 'v1', 'namespace' => 'App\\Http\\Api\\v1\\Controllers'], function(Router $api) {
     $api->get('test', 'TestController@index'); // Testing get route
 });
 ```
@@ -347,7 +347,7 @@ When making get requests, there are times when we want to retrieve the specified
 
 E.G
 ```
-GET http://{domain}/api/v1/profiles/100?include=operator
+GET http://{domain}/api/v1/profiles/100?include=foo
 ```
 
 The above example is making a get request to the `profiles` resource with an `{id}` of 100.
@@ -364,16 +364,6 @@ Which will return the values of the profile with the `{id}` of 100
     "type": "Profile",
     "attributes": {
       "first_name": "Isaac",
-      "last_name": "Nkhuwa ",
-      "birth_date": "1999-07-24",
-      "msisdn": "0972936297",
-      "country": "Zambia",
-      "country_id": 8,
-      "city": "Lusaka",
-      "city_id": 459,
-      "email": "nkhuwa.isaac@gmail.com",
-      "lat": null,
-      "lon": null
     }
   }
 }
@@ -395,24 +385,13 @@ Response:
     "type": "Profile",
     "attributes": {
       "first_name": "Isaac",
-      "last_name": "Nkhuwa ",
-      "birth_date": "1999-07-24",
-      "msisdn": "0972936297",
-      "country": "Zambia",
-      "country_id": 8,
-      "city": "Lusaka",
-      "city_id": 459,
-      "email": "nkhuwa.isaac@gmail.com",
-      "lat": null,
-      "lon": null
     },
-    "operator": {
+    "relationship": {
       "data": {
         "id": 6,
-        "type": "Operator",
+        "type": "relationship",
         "attributes": {
-          "name": "Airtel",
-          "country_id": 8
+          "name": "test",
         }
       }
     }
@@ -424,7 +403,7 @@ Response:
 
 We are also able to search through resources using the `?search` URL Parameter. 
 ```
-GET http://wizard.dev/api/v1/profiles/100?search=Isaac
+GET http://{doamin}.dev/api/v1/profiles/100?search=Isaac
 ```
 
 Will search through the results of that particular resource and return the data that correlates to the search param. 
@@ -436,16 +415,6 @@ Will search through the results of that particular resource and return the data 
     "type": "Profile",
     "attributes": {
       "first_name": "Isaac",
-      "last_name": "Nkhuwa ",
-      "birth_date": "1999-07-24",
-      "msisdn": "0972936297",
-      "country": "Zambia",
-      "country_id": 8,
-      "city": "Lusaka",
-      "city_id": 459,
-      "email": "nkhuwa.isaac@gmail.com",
-      "lat": null,
-      "lon": null
     }
   }
 }
@@ -459,14 +428,14 @@ Example usage:
 Let's assume that we want to search for all of the profiles that have a country 'South Africa', we may simply add `?search=South%20Africa` as well as `&searchFields=country`
 
 ```
-GET http://wizard.dev/api/v1/profiles?search=South%20Africa&searchFields=country
+GET http://{domain}.dev/api/v1/profiles?search=South%20Africa&searchFields=country
 ```
 
 This will only return the results that have a country set to 'South Africa'. 
 
 We can also specify that it does not need to be an exact match by adding `:like` to the end of the `searchField`
 ```
-GET http://wizard.dev/api/v1/profiles?search=South%20Africa&searchFields=country:like
+GET http://{doamin}.dev/api/v1/profiles?search=South%20Africa&searchFields=country:like
 ```
 
 This will return the results where the country for the profile is similar to 'South Africa'.
@@ -474,12 +443,12 @@ This will return the results where the country for the profile is similar to 'So
 Further than that, we are able to chain the searchFields to become whatever we need. 
 
 ```
-GET http://wizard.dev/api/v1/profiles?search=name:John;email:john@gmail.com
+GET http://{domain}.dev/api/v1/profiles?search=name:John;email:john@gmail.com
 ```
 This will search for a user where the name is 'John' and the email is 'john@gmail.com'
 
 ```
-GET http://wizard.dev/api/v1/profiles?search=name:John;email:john@gmail.com&searchFields=name:like;email:=
+GET http://{domain}.dev/api/v1/profiles?search=name:John;email:john@gmail.com&searchFields=name:like;email:=
 ```
 And the above will search for the resource that has a name similar to 'John' and an email similar to 'john@gmail.com'
 
@@ -494,7 +463,7 @@ This will order the results by their name in descending order.
 
 We are also able to order the results based on their relationships
 ```
-GET http://wizard.dev/api/v1/profiles?orderBy=operators|id&sortedBy=desc
+GET http://{domain}.dev/api/v1/profiles?orderBy=relationship|id&sortedBy=desc
 ```
 Will return the results ordered by their operator id in the descending order. 
 
@@ -503,7 +472,7 @@ Will return the results ordered by their operator id in the descending order.
 We are able to chain all of the above URL parameters to output exactly what we need, an example of this with all of the above looks like this
 
 ```
-GET http://wizard.dev/api/v1/profiles?search=South%20Africa&searchFields=country&orderBy=operators|id&sortedBy=asc&include=operator
+GET http://{domain}.dev/api/v1/profiles?search=South%20Africa&searchFields=country&orderBy=relationship|id&sortedBy=asc&include=foo
 ```
 ---
 
@@ -578,7 +547,7 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Interfaces\TestRepository;
+use App\Interfaces\FooRepository;
 use App\Models\Foo;
 use App\Validators\FooValidator;
 
@@ -586,7 +555,7 @@ use App\Validators\FooValidator;
  * Class TestRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class FooRepositoryEloquent extends BaseRepository implements TestRepository
+class FooRepositoryEloquent extends BaseRepository implements FooRepository
 {
     /**
      * Specify Model class name
@@ -621,7 +590,6 @@ When we are using the repository, we are able to search through fields associate
 protected $fieldSearchable = [
         'name' => 'like',
         'type' => 'like',
-        'operator',
     ];
 ```
 
@@ -647,7 +615,7 @@ class FooTransformer extends TransformerAbstract
 {
     /**
      * Transform the \Profile entity
-     * @param Profile $model
+     * @param Foo $model
      *
      * @return array
      */
@@ -677,7 +645,7 @@ if our model class has the following in the fillable array
 protected $fillable = [
     'name',
     'type'
-    'operator_id'
+    'relationship_id'
 ];
 ```
 
@@ -688,11 +656,11 @@ Our response from the server will look like this
   "data": [
     {
       "id": 100,
-      "type": "Profile",
+      "type": "Foo",
       "attributes": {
         "name": "Something",
         "type": "some type ",
-        "operator_id": "1"
+        "relationship_id": "1"
       }
     }
   ]
@@ -708,12 +676,12 @@ We can associate this by adding these functions to our `Foo.php` model
 ```php
 public function devices()
     {
-        return $this->hasMany('App\Models\Device');
+        return $this->hasMany('App\Models\Tests');
     }
 
     public function operator()
     {
-        return $this->belongsTo('App\Models\Operator');
+        return $this->belongsTo('App\Models\Bar');
     }
 ```
 
@@ -733,11 +701,11 @@ use App\Models\Foo;
  */
 class FooTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['operator', 'devices'];
+    protected $availableIncludes = ['foo', 'tests'];
     
     /**
      * Transform the \Profile entity
-     * @param Profile $model
+     * @param Foo $model
      *
      * @return array
      */
@@ -751,18 +719,18 @@ class FooTransformer extends TransformerAbstract
         ];
     }
     
-    public function includeOperator(Foo $model)
+    public function includeBar(Foo $model)
     {
-        if ($model->operator) {
-            return $this->item($model->operator, new OperatorTransformer());
+        if ($model->bar) {
+            return $this->item($model->bar, new BarTransformer());
         } else {
             return null;
         }
     }
     
-    public function includeDevices(Foo $model)
+    public function includeTests(Foo $model)
     {
-        return $this->collection($model->devices, new DeviceTransformer());
+        return $this->collection($model->tests, new TestsTransformer());
     }
 }
 ```
@@ -782,18 +750,18 @@ our response will look like this
   "data": [
     {
       "id": 100,
-      "type": "Profile",
+      "type": "Foos",
       "attributes": {
         "name": "Something",
-        "type": "some type ",
-        "operator_id": 1,
+        "type": "Foos ",
+        "relationship_id": 1,
       },
-      "operator": {
+      "relationship": {
         "data": {
           "id": 1,
-          "type": "Operator",
+          "type": "Foobars",
           "attributes": {
-            "name": "Airtel",
+            "name": "Foobar",
             "country_id": 8
           }
         }

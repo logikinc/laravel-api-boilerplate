@@ -1164,14 +1164,6 @@ To achieve this, we may build annotations that correlate to our API and generate
 
 Given the above annotations, when we run `php artisan l5-swagger:generate` we will get a JSON formatted file that will include the routes as swagger documentation.
 
-The city Endpoints:
-
-![City Endpoints](https://bitbucket.org/repo/Bggxejd/images/816270752-Screen%20Shot%202017-05-04%20at%202.35.22%20PM.png)
-
-![City Endpoints Expanded](https://bitbucket.org/repo/Bggxejd/images/2820044863-Screen%20Shot%202017-05-04%20at%202.35.36%20PM.png)
-
-
-
 
 
 

@@ -105,7 +105,7 @@ php artisan env:set JWT_SECRET {copied_text}
 
 Via Bash Installer
 ```
-sh install.sh
+sh docker-install.sh
 
 ```
 

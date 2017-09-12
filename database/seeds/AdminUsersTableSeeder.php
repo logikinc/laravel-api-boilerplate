@@ -13,7 +13,7 @@ class AdminUsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'Admin',
-            'email' => 'admin@hyvemobile.co.za',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
         ]);
     }

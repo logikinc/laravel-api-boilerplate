@@ -2,12 +2,13 @@
 
 This is a boilerplate for an API
 
+Please feel free to contribute / improve the boilerplate
 
 ##### Code Standards
 ---
 
 We are utilising the repository pattern for the API code base
-[Repository Pattern very basicIntroduction](https://bosnadev.com/2015/03/07/using-repository-pattern-in-laravel-5/)
+[Repository Pattern very basicIntroduction](https://bosnadev.com/2015/03/07/using-repository-pattern-in-laravel-5/) Along with 
 [Json API Specification](http://jsonapi.org/)
 
 
@@ -16,11 +17,11 @@ We are utilising the repository pattern for the API code base
 ---
 
 ###### Production Dependancies
-[JWT Auth](https://github.com/tymondesigns/jwt-auth)
-[Dingo Api](https://github.com/dingo/api)
-[Laravel Cors](https://github.com/barryvdh/laravel-cors)
-[Repository Package](https://github.com/andersao/l5-repository)
-[Permissions and Roles](https://github.com/spatie/laravel-permission)
+[JWT Auth](https://github.com/tymondesigns/jwt-auth) | 
+[Dingo Api](https://github.com/dingo/api) | 
+[Laravel Cors](https://github.com/barryvdh/laravel-cors) | 
+[Repository Package](https://github.com/andersao/l5-repository) | 
+[Permissions and Roles](https://github.com/spatie/laravel-permission) | 
 
 ###### Development Dependancies
 [Flexable ENV File](https://github.com/svenluijten/flex-env)

@@ -1,0 +1,31 @@
+<?php
+
+$NAMESPACE$
+
+use Illuminate\Support\Facades\Lang;
+use League\Fractal\TransformerAbstract;
+use $MODEL$;
+
+/**
+ * Class $CLASS$Transformer
+ * @package $NAMESPACE$
+ */
+class $CLASS$Transformer extends TransformerAbstract
+{
+
+    /**
+     * Transform the \$CLASS$ entity
+     * @param $CLASS$ $model
+     *
+     * @return array
+     */
+    public function transform($CLASS$ $model)
+    {
+        $data = array_only($model->toArray(), $model->getFillable());
+        return [
+            'id'         => (int) $model->id,
+            'type' => $model->getModelName(),
+            'attributes' => $data
+        ];
+    }
+}

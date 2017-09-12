@@ -1,0 +1,362 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Example APP",
+        "version": "v1"
+    },
+    "host": "api-boilerplate.dev",
+    "basePath": "/api/v1",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/x-www-form-urlencoded",
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Login",
+                "description": "Provides an email and a password and expects a JWT token in return",
+                "operationId": "loginInUser",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email address associated with the ondash user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password associated with the ondash user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "device_id",
+                        "in": "formData",
+                        "description": "Device that is attempting to connect to the API",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Request"
+                    },
+                    "403": {
+                        "description": "Invalid Credentials"
+                    },
+                    "422": {
+                        "description": "Invalid Request"
+                    }
+                }
+            }
+        },
+        "/auth/recovery": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Forgot Password",
+                "description": "Sends an email to the user with a forgot password token in order for the user to reset their password",
+                "operationId": "forgotPassword",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email address associated with the ondash user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Request"
+                    },
+                    "404": {
+                        "description": "No user with given email"
+                    },
+                    "422": {
+                        "description": "Invalid Request"
+                    }
+                }
+            }
+        },
+        "/auth/reset": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Password Reset",
+                "description": "Resets a user password given a password reset token, an email and a confirmed password",
+                "operationId": "resetPassword",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Token that comes from the forgot password email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email address associated with the ondash user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "The new password",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "description": "Retype the password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Request"
+                    },
+                    "422": {
+                        "description": "Invalid Request"
+                    }
+                }
+            }
+        },
+        "/roles": {
+            "get": {
+                "tags": [
+                    "Roles & Permissions"
+                ],
+                "summary": "Get list of all roles",
+                "description": "Returns list of roles",
+                "operationId": "get_all_roles",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/roles/1": {
+            "get": {
+                "tags": [
+                    "Roles & Permissions"
+                ],
+                "summary": "Get single role",
+                "description": "Returns a single role",
+                "operationId": "get_single_role",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "User Settings"
+                ],
+                "summary": "Get current users profile",
+                "description": "Returns current users profile",
+                "operationId": "get_current_user",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/user/update": {
+            "post": {
+                "tags": [
+                    "User Settings"
+                ],
+                "summary": "Updates the current user",
+                "description": "Updates the current user",
+                "operationId": "update_current_user",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/user/change_password": {
+            "post": {
+                "tags": [
+                    "User Settings"
+                ],
+                "summary": "Updates the current users password",
+                "description": "Updates the current users password",
+                "operationId": "change_current_user_password",
+                "parameters": [
+                    {
+                        "name": "old_password",
+                        "in": "formData",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "formData",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of all users",
+                "description": "Returns list of users",
+                "operationId": "get_all_users",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a user",
+                "description": "Creates a user given the form request",
+                "operationId": "create_user",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/users/1": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get single city",
+                "description": "Returns a single user",
+                "operationId": "get_single_user",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update a user",
+                "description": "Update a user given the form request",
+                "operationId": "update_user",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/users/1/delete": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete a user",
+                "description": "Delete a user",
+                "operationId": "delete_user",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/users/1/recover": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Recover a user",
+                "description": "Recover a user",
+                "operationId": "recover_user",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {},
+    "securityDefinitions": {
+        "bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

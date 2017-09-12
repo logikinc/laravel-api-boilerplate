@@ -1,0 +1,248 @@
+<?php
+
+$NAMESPACE$
+
+use App\Http\Api\ApiController;
+
+use App\Models\$CLASS$;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Presenters\$CLASS$Presenter;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
+use $APPNAME$Http\Requests\$CLASS$CreateRequest;
+use $APPNAME$Http\Requests\$CLASS$UpdateRequest;
+$REPOSITORY$
+$VALIDATOR$
+
+
+class $CONTROLLER$Controller extends ApiController
+{
+
+    /**
+     * @var $CLASS$Repository
+     */
+    protected $repository;
+
+    /**
+     * @var $CLASS$Validator
+     */
+    protected $validator;
+
+    public function __construct($CLASS$Repository $repository, $CLASS$Validator $validator, $CLASS$Presenter $presenter)
+    {
+        $this->repository = $repository;
+        $this->validator  = $validator;
+        $this->repository->setPresenter($presenter);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        try {
+            $$PLURAL$ = $this->repository->all();
+            return $this->respondWithSuccess($$PLURAL$);
+
+        } catch(\Exception $error) {
+            return $this->respondInternalError($error->getMessage());
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $$SINGULAR$ = $this->repository->find($id);
+            return $this->respondWithSuccess($$SINGULAR$);
+        } catch(ModelNotFoundException $error){
+            return $this->respondNotFound($error->getMessage());
+        } catch (\Exception $error){
+            return $this->respondInternalError($error->getMessage());
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  $CLASS$CreateRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store($CLASS$CreateRequest $request)
+    {
+        try {
+            if(!$this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE)) {
+                return $this->respondUnprocessableEntity($this->errorBag());
+            }
+            $$SINGULAR$ = $this->repository->create($request->all());
+            return $this->respondCreated($$SINGULAR$);
+
+        } catch(\Exception $error) {
+            return $this->respondInternalError($error->getMessage());
+        }
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  $CLASS$UpdateRequest $request
+     * @param  string            $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update($CLASS$UpdateRequest $request, $id)
+    {
+        try {
+            if(!$this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE)) {
+                return $this->respondUnprocessableEntity($this->errorBag());
+            }
+            $$SINGULAR$ = $this->repository->update($request->all(), $id);
+            return $this->respondCreated($$SINGULAR$);
+
+        } catch(\Exception $error) {
+            return $this->respondInternalError($error->getMessage());
+        }
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        try {
+            $this->repository->delete($id);
+            return $this->respondNoContent();
+        } catch(\Exception $error) {
+            return $this->respondInternalError($error->getMessage());
+        }
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function restore($id)
+    {
+        try {
+            $$SINGULAR$ = $CLASS$::withTrashed()->find($id);
+            $$SINGULAR$->restore();
+            return $this->respondWithSuccess($$SINGULAR$);
+        } catch(\Exception $error) {
+            return $this->respondInternalError($error->getMessage());
+            }
+    }
+
+
+ // Documentation
+
+ /**
+ * @SWG\Get(
+ *      path="/$PLURAL$",
+ *      operationId="get_all_$PLURAL$",
+ *      tags={"$PLURAL$"},
+ *      summary="Get list of all $PLURAL$",
+ *      description="Returns list of $PLURAL$",
+ *      @SWG\Response(
+ *          response=200,
+ *          description="successful operation",
+ *       ),
+ *  )
+ *
+ */
+
+/**
+ * @SWG\Get(
+ *      path="/$PLURAL$/1",
+ *      operationId="get_single_$SINGULAR$",
+ *      tags={"$PLURAL$"},
+ *      summary="Get single city",
+ *      description="Returns a single $SINGULAR$",
+ *      @SWG\Response(
+ *          response=200,
+ *          description="successful operation",
+ *       )
+ * )
+ *
+ */
+
+/**
+ * @SWG\Post(
+ *     path="/$PLURAL$",
+ *     tags={"$PLURAL$"},
+ *     operationId="create_$SINGULAR$",
+ *     summary="Create a $SINGULAR$",
+ *     description="Creates a $SINGULAR$ given the form request",
+ *     @SWG\Parameter(
+ *         name="name",
+ *         in="formData",
+ *         type="string",
+ *         description="",
+ *         required=true,
+ *     ),
+ *     @SWG\Response(
+ *          response=200,
+ *          description="successful operation",
+ *       )
+ * )
+ */
+
+/**
+ * @SWG\Post(
+ *     path="/$PLURAL$/1",
+ *     tags={"$PLURAL$"},
+ *     operationId="update_$SINGULAR$",
+ *     summary="Update a $SINGULAR$",
+ *     description="Update a $SINGULAR$ given the form request",
+ *     @SWG\Parameter(
+ *         name="name",
+ *         in="formData",
+ *         type="string",
+ *         description="",
+ *         required=true,
+ *     ),
+ *     @SWG\Response(
+ *          response=200,
+ *          description="successful operation",
+ *       )
+ * )
+ */
+
+/**
+ * @SWG\Post(
+ *     path="/$PLURAL$/1/delete",
+ *     tags={"$PLURAL$"},
+ *     operationId="delete_$SINGULAR$",
+ *     summary="Delete a $SINGULAR$",
+ *     description="Delete a $SINGULAR$",
+ *     @SWG\Response(
+ *          response=200,
+ *          description="successful operation",
+ *       )
+ * )
+ */
+
+/**
+ * @SWG\Post(
+ *     path="/$PLURAL$/1/recover",
+ *     tags={"$PLURAL$"},
+ *     operationId="recover_$SINGULAR$",
+ *     summary="Recover a $SINGULAR$",
+ *     description="Recover a $SINGULAR$",
+ *     @SWG\Response(
+ *          response=200,
+ *          description="successful operation",
+ *       )
+ * )
+ */
+}

@@ -82,7 +82,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Hyve Mobile API Boilerplate
+                    API Boilerplate
                 </div>
             </div>
         </div>

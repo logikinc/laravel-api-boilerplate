@@ -38,7 +38,7 @@ We are utilising the repository pattern for the API code base
 clone the repo and install the dependancies
 
 ```terminal
-git clone git@bitbucket.org:onnet/laravel.api.boilerplate.git
+git clone repo
 cd laravel.api.boilerplate
 ```
 

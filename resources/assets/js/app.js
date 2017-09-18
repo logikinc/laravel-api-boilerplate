@@ -1,20 +1,48 @@
+import $ from 'jquery';
+import _ from 'lodash';
+import 'bootstrap-sass';
+import Vue from 'vue';
+import axios from 'axios';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+window.$ = window.jQuery = $;
+window.axios = axios;
 
-require('./bootstrap');
+import router from './routes';
+import store from './store/index';
+import App from './components/App.vue';
+import jwtToken from './helpers/jwt-token';
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+axios.interceptors.request.use(config => {
+    config.headers['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
 
-Vue.component('example', require('./components/Example.vue'));
+    if(jwtToken.getToken()) {
+        config.headers['Authorization'] = 'Bearer '+ jwtToken.getToken();
+    }
+
+    return config;
+}, error => {
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+    return response;
+}, error => {
+    let errorResponseData = error.response.data;
+
+    if(errorResponseData.error && (errorResponseData.error === "token_invalid" || errorResponseData.error === "token_expired" || errorResponseData.error === 'token_not_provided')) {
+        store.dispatch('logoutRequest')
+            .then(()=> {
+                router.push({name: 'login'});
+            });
+    }
+
+    return Promise.reject(error);
+});
+
+Vue.component('app', App);
 
 const app = new Vue({
-    el: '#app'
-});
+    router,
+    store
+}).$mount('#app');

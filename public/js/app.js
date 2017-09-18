@@ -433,15 +433,11 @@ module.exports = function normalizeComponent (
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return siteName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return currentUser; });
-/* unused harmony export updateUserProfile */
-/* unused harmony export updateUserPassword */
 var apiDomain = Laravel.apiDomain;
 var siteName = Laravel.siteName;
 
 var login = apiDomain + '/auth/login';
-var currentUser = apiDomain + '/user';
-var updateUserProfile = apiDomain + '/user/profile/update';
-var updateUserPassword = apiDomain + '/user/password/update';
+var currentUser = apiDomain + '/v1/user';
 
 /***/ }),
 /* 3 */
@@ -1651,26 +1647,18 @@ module.exports = defaults;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_AUTH_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return UNSET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SET_AUTH_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UNSET_AUTH_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_LOGIN_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOGIN_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOGIN_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SHOW_SUCCESS_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return HIDE_SUCCESS_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SHOW_ERROR_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return HIDE_ERROR_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SHOW_INFO_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return HIDE_INFO_NOTIFICATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return HIDE_ALL_NOTIFICATION; });
-/* unused harmony export CLEAR_EDIT_PROFILE_ERRORS */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UPDATE_AUTH_USER_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_AUTH_USER_EMAIL; });
-/* unused harmony export UPDATE_PROFILE_SUCCESS */
-/* unused harmony export UPDATE_PROFILE_FAILURE */
-/* unused harmony export CLEAR_EDIT_PASSWORD_ERRORS */
-/* unused harmony export UPDATE_PASSWORD_SUCCESS */
-/* unused harmony export UPDATE_PASSWORD_FAILURE */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SHOW_SUCCESS_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return HIDE_SUCCESS_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SHOW_ERROR_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return HIDE_ERROR_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SHOW_INFO_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return HIDE_INFO_NOTIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return HIDE_ALL_NOTIFICATION; });
 // auth
 var SET_AUTH_USER = 'SET_AUTH_USER';
 var UNSET_AUTH_USER = 'UNSET_AUTH_USER';
@@ -1688,18 +1676,6 @@ var HIDE_ERROR_NOTIFICATION = 'HIDE_ERROR_NOTIFICATION';
 var SHOW_INFO_NOTIFICATION = 'SHOW_INFO_NOTIFICATION';
 var HIDE_INFO_NOTIFICATION = 'HIDE_INFO_NOTIFICATION';
 var HIDE_ALL_NOTIFICATION = 'HIDE_ALL_NOTIFICATION';
-
-// edit profile
-var CLEAR_EDIT_PROFILE_ERRORS = 'CLEAR_EDIT_PROFILE_ERRORS';
-var UPDATE_AUTH_USER_NAME = 'UPDATE_AUTH_USER_NAME';
-var UPDATE_AUTH_USER_EMAIL = 'UPDATE_AUTH_USER_EMAIL';
-var UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
-var UPDATE_PROFILE_FAILURE = 'UPDATE_PROFILE_FAILURE';
-
-// edit password
-var CLEAR_EDIT_PASSWORD_ERRORS = 'CLEAR_EDIT_PASSWORD_ERRORS';
-var UPDATE_PASSWORD_SUCCESS = 'UPDATE_PASSWORD_SUCCESS';
-var UPDATE_PASSWORD_FAILURE = 'UPDATE_PASSWORD_FAILURE';
 
 /***/ }),
 /* 8 */
@@ -23967,23 +23943,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -24246,15 +24205,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: null,
         email: null
     },
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* UPDATE_AUTH_USER_NAME */], function (state, payload) {
-        state.name = payload.value;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UPDATE_AUTH_USER_EMAIL */], function (state, payload) {
-        state.email = payload.value;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["f" /* SET_AUTH_USER */], function (state, payload) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* SET_AUTH_USER */], function (state, payload) {
         state.authenticated = true;
         state.name = payload.user.name;
         state.email = payload.user.email;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["g" /* UNSET_AUTH_USER */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UNSET_AUTH_USER */], function (state, payload) {
         state.authenticated = false;
         state.name = null;
         state.email = null;
@@ -24266,7 +24221,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["c" /* currentUser */]).then(function (response) {
                 commit({
-                    type: __WEBPACK_IMPORTED_MODULE_1__mutation_types__["f" /* SET_AUTH_USER */],
+                    type: __WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* SET_AUTH_USER */],
                     user: response.data
                 });
             }).catch(function (error) {
@@ -24277,7 +24232,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref2.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_1__mutation_types__["g" /* UNSET_AUTH_USER */]
+                type: __WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UNSET_AUTH_USER */]
             });
         }
     }
@@ -24393,19 +24348,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         error: null,
         info: null
     },
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["h" /* SHOW_SUCCESS_NOTIFICATION */], function (state, payload) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["f" /* SHOW_SUCCESS_NOTIFICATION */], function (state, payload) {
         state.success = payload.msg;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["i" /* HIDE_SUCCESS_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["g" /* HIDE_SUCCESS_NOTIFICATION */], function (state, payload) {
         state.success = null;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["j" /* SHOW_ERROR_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["h" /* SHOW_ERROR_NOTIFICATION */], function (state, payload) {
         state.error = payload.msg;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["k" /* HIDE_ERROR_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["i" /* HIDE_ERROR_NOTIFICATION */], function (state, payload) {
         state.error = null;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["l" /* SHOW_INFO_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["j" /* SHOW_INFO_NOTIFICATION */], function (state, payload) {
         state.info = payload.msg;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["m" /* HIDE_INFO_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["k" /* HIDE_INFO_NOTIFICATION */], function (state, payload) {
         state.info = null;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* HIDE_ALL_NOTIFICATION */], function (state, payload) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["l" /* HIDE_ALL_NOTIFICATION */], function (state, payload) {
         state.success = null;
         state.error = null;
         state.info = null;
@@ -24415,7 +24370,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["h" /* SHOW_SUCCESS_NOTIFICATION */],
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["f" /* SHOW_SUCCESS_NOTIFICATION */],
                 msg: msg
             });
         },
@@ -24423,14 +24378,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref2.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["i" /* HIDE_SUCCESS_NOTIFICATION */]
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["g" /* HIDE_SUCCESS_NOTIFICATION */]
             });
         },
         showErrorNotification: function showErrorNotification(_ref3, msg) {
             var commit = _ref3.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["j" /* SHOW_ERROR_NOTIFICATION */],
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["h" /* SHOW_ERROR_NOTIFICATION */],
                 msg: msg
             });
         },
@@ -24440,7 +24395,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             if (state.error) {
                 commit({
-                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["k" /* HIDE_ERROR_NOTIFICATION */]
+                    type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["i" /* HIDE_ERROR_NOTIFICATION */]
                 });
             }
         },
@@ -24448,7 +24403,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref5.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["l" /* SHOW_INFO_NOTIFICATION */],
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["j" /* SHOW_INFO_NOTIFICATION */],
                 msg: msg
             });
         },
@@ -24456,14 +24411,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref6.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["m" /* HIDE_INFO_NOTIFICATION */]
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["k" /* HIDE_INFO_NOTIFICATION */]
             });
         },
         hideAllNotifications: function hideAllNotifications(_ref7) {
             var commit = _ref7.commit;
 
             commit({
-                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* HIDE_ALL_NOTIFICATION */]
+                type: __WEBPACK_IMPORTED_MODULE_0__mutation_types__["l" /* HIDE_ALL_NOTIFICATION */]
             });
         }
     }

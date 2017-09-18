@@ -1,21 +1,4 @@
 <template>
-    <!--<div class="col-lg-6 col-lg-offset-3">-->
-        <!--<form @submit.prevent="login()">-->
-            <!--<div class="form-group" :class="{ 'has-error' : errors.email}">-->
-                <!--<label class="control-label" for="email">Email</label>-->
-                <!--<input type="email" class="form-control" id="email" v-model="email">-->
-                <!--<span class="help-block" v-if="errors.email">{{ errors.email }}</span>-->
-            <!--</div>-->
-            <!--<div class="form-group" :class="{ 'has-error' : errors.password}">-->
-                <!--<label class="control-label" for="password">Password</label>-->
-                <!--<input type="password" class="form-control" id="password" v-model="password">-->
-                <!--<span class="help-block" v-if="errors.password">{{ errors.password }}</span>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-                <!--<button type="submit" class="btn btn-primary btn-block">Login</button>-->
-            <!--</div>-->
-        <!--</form>-->
-    <!--</div>-->
     <div class="col-sm-6 col-md-4 col-md-offset-4">
         <div class="account-wall">
             <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
